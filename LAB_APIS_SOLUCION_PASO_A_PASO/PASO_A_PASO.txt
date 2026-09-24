@@ -1,0 +1,45 @@
+GUIA PASO A PASO
+
+EJERCICIO 1 - LISTADO
+1. Equipo.java representa equipos.
+2. Api.java representa APIs.
+3. Endpoint.java representa endpoints.
+4. Api tiene @ManyToOne + @JoinColumn(name = "equipo_id").
+5. Endpoint tiene @ManyToOne + @JoinColumn(name = "api_id").
+6. ApiRepository.findAll() obtiene todas las APIs.
+7. El Controller manda la lista a list.html.
+8. list.html usa ${api.equipo.nombre} para mostrar el nombre del equipo.
+
+EJERCICIO 2 - DETALLE Y FILTRO
+1. "Ver endpoints" manda /api/endpoints?id=...
+2. El controller busca la API con findById().
+3. Sin filtro -> listarPorApi(id).
+4. Con filtro -> listarPorApiYMetodo(id, metodo).
+5. detail.html muestra datos de API + endpoints.
+6. "Mostrar todos" vuelve sin el parámetro metodo.
+
+EJERCICIO 3 - NUEVA API
+1. /api/nuevo crea un Api vacío.
+2. Se cargan los equipos con findAll().
+3. El usuario selecciona estado y equipo.
+4. POST /api/guardar recibe Api por Data Binding.
+5. Si id == null, es nueva.
+6. Se coloca LocalDate.now().
+7. save(api).
+8. addFlashAttribute con mensaje.
+9. redirect:/.
+
+EJERCICIO 3 - EDITAR API
+1. /api/editar?id=...
+2. findById(id).
+3. Si no existe -> redirect:/.
+4. Si existe -> formulario precargado.
+5. Se conserva la fecha original.
+6. save(api) actualiza.
+7. addFlashAttribute con mensaje diferente.
+8. redirect:/.
+
+IDEA CLAVE
+Model: Controller -> Vista.
+RedirectAttributes: Controller A -> redirect -> Controller B -> Vista.
+El Flash Attribute aparece una sola vez.
