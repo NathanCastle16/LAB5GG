@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Resultado - Hormiga Charlie</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+
+<div class="contenedor ancho">
+
+    <h1>Foto de la Hormiga Charlie</h1>
+
+    <div class="resumen">
+        <p>
+            <strong>Movimientos realizados:</strong>
+            <span th:text="${resultado.movimientos}"></span>
+        </p>
+        <p>
+            <strong>Posición final:</strong>
+            <span th:text="${resultado.filaHormiga}"></span>,
+            <span th:text="${resultado.columnaHormiga}"></span>
+        </p>
+        <p>
+            <strong>Dirección final:</strong>
+            <span th:text="${resultado.direccion}"></span>
+        </p>
+    </div>
+
+    <!--
+        Thymeleaf recorre cada fila y luego cada celda.
+        Celda negra = feromona.
+        Celda celeste = miga.
+        La celda con Charlie lleva un borde rojo.
+    -->
+    <div class="zona-scroll">
+        <div class="tablero">
+
+            <div class="fila-tablero"
+                 th:each="fila : ${resultado.matriz}">
+
+                <div class="celda"
+                     th:each="celda : ${fila}"
+                     th:classappend="${celda.feromona} ? ' feromona' : ' miga'">
+
+                    <span class="hormiga"
+                          th:if="${celda.hormiga}">●</span>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class="acciones">
+        <a class="boton-secundario" th:href="@{/}">Nueva simulación</a>
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,17 @@
+PASO A PASO - HORMIGA CHARLIE
+
+1. El usuario entra a GET /.
+2. HormigaController crea un ConfiguracionHormiga vacío.
+3. configuracion.html usa th:object y th:field para llenar ese objeto.
+4. POST /configurar recibe el objeto mediante @ModelAttribute.
+5. Se revisan dimensión, posición, dirección y aumento de visión.
+6. Se muestra una segunda pantalla para indicar la cantidad de movimientos.
+7. POST /simular vuelve a recibir ConfiguracionHormiga por Data Binding.
+8. Se crea SimuladorCharlie.
+9. En cada movimiento:
+   - si hay miga: deja feromona, gira derecha, avanza;
+   - si hay feromona: deja miga, gira izquierda, avanza.
+10. Si Charlie sale del límite visible, el límite se amplía.
+11. Se construye ResultadoSimulacion con la matriz final.
+12. resultado.html recorre la matriz con th:each.
+13. Las feromonas se muestran negras y las migas celestes.

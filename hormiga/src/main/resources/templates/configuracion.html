@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Hormiga Charlie</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+
+<div class="contenedor">
+
+    <h1>Configuración de la "Isla del Capricho"</h1>
+
+    <div class="alerta" th:if="${error != null}" th:text="${error}"></div>
+
+    <!--
+        th:object conecta el formulario con el objeto ConfiguracionHormiga.
+        Cada th:field se relaciona con un atributo de esa clase.
+    -->
+    <form th:action="@{/configurar}"
+          method="post"
+          th:object="${configuracion}">
+
+        <div class="fila-form">
+            <label>Dimensión inicial de la zona:</label>
+            <input type="text"
+                   th:field="*{dimensionInicial}"
+                   placeholder="5,5"
+                   required>
+        </div>
+
+        <div class="fila-form">
+            <label>Aumento de visión de la hormiga:</label>
+            <input type="number"
+                   th:field="*{aumentoVision}"
+                   min="1"
+                   placeholder="4"
+                   required>
+        </div>
+
+        <div class="fila-form">
+            <label>Posición inicial de la hormiga:</label>
+            <input type="text"
+                   th:field="*{posicionInicial}"
+                   placeholder="2,2"
+                   required>
+        </div>
+
+        <div class="fila-form">
+            <label>Dirección inicial de la hormiga:</label>
+            <input type="text"
+                   th:field="*{direccionInicial}"
+                   placeholder="R"
+                   required>
+        </div>
+
+        <button type="submit">Configurar</button>
+
+    </form>
+
+    <div class="ayuda">
+        <p><strong>Direcciones:</strong> R = derecha, L = izquierda, U = arriba, D = abajo.</p>
+        <p><strong>Ejemplo:</strong> dimensión 5,5 y posición inicial 2,2.</p>
+    </div>
+
+</div>
+
+</body>
+</html>

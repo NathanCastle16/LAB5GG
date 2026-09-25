@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Iniciar simulación</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+
+<div class="contenedor">
+
+    <h1>Configuración de la "Isla del Capricho"</h1>
+
+    <div class="resumen">
+        <p><strong>Dimensión inicial:</strong> <span th:text="${configuracion.dimensionInicial}"></span></p>
+        <p><strong>Aumento de visión:</strong> <span th:text="${configuracion.aumentoVision}"></span></p>
+        <p><strong>Posición inicial:</strong> <span th:text="${configuracion.posicionInicial}"></span></p>
+        <p><strong>Dirección inicial:</strong> <span th:text="${configuracion.direccionInicial}"></span></p>
+    </div>
+
+    <div class="alerta" th:if="${error != null}" th:text="${error}"></div>
+
+    <!--
+        Los campos hidden permiten volver a enviar la configuración
+        al Controller sin usar una tecnología nueva como sesión.
+    -->
+    <form th:action="@{/simular}"
+          method="post"
+          th:object="${configuracion}">
+
+        <input type="hidden" th:field="*{dimensionInicial}">
+        <input type="hidden" th:field="*{aumentoVision}">
+        <input type="hidden" th:field="*{posicionInicial}">
+        <input type="hidden" th:field="*{direccionInicial}">
+
+        <div class="fila-form">
+            <label>Cantidad de foto por actualización:</label>
+            <input type="number"
+                   th:field="*{cantidadMovimientos}"
+                   min="0"
+                   placeholder="10"
+                   required>
+        </div>
+
+        <button type="submit">Iniciar</button>
+        <a class="boton-secundario" th:href="@{/}">Volver</a>
+
+    </form>
+
+    <p class="nota">
+        En esta solución, este valor indica cuántos movimientos de Charlie se ejecutarán antes de mostrar la foto.
+        Por ejemplo, 20000 genera la figura correspondiente al movimiento 20000.
+    </p>
+
+</div>
+
+</body>
+</html>
